@@ -1,10 +1,10 @@
 <?php
 
 namespace Wikibase;
-use Title;
 
 /**
- * Handler updates to the entity cache.
+ * Implementation of the client store interface using an SQL backend via MediaWiki's
+ * storage abstraction layer.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,43 +29,45 @@ use Title;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class EntityCacheUpdater {
+class ClientSqlStore implements ClientStore {
 
 	/**
-	 * Update the entity cache to reflect the provided change.
+	 * @see Store::singleton
 	 *
 	 * @since 0.1
 	 *
-	 * @param Change $change
+	 * @return Store
 	 */
-	public function handleChange( Change $change ) {
-		list( $entityType, $updateType ) = explode( '~', $change->getType() );
+	public static function singleton() {
+		static $instance = false;
 
-		$store = ClientStoreFactory::getStore();
-		$entityCache = $store->newEntityCache();
-
-		/**
-		 * @var Entity $entity
-		 */
-		$entity = $change->getEntity();
-
-		switch ( $updateType ) {
-			case 'remove':
-				$entityCache->deleteEntity( $entity );
-				break;
-			case 'add':
-				$entityCache->addEntity( $entity );
-				break;
-			case 'update':
-				$entityCache->updateEntity( $entity );
-				break;
+		if ( $instance === false ) {
+			$instance = new static();
 		}
 
-		// TODO: handle refresh updates and refresh for other types as well
+		return $instance;
+	}
 
-		if ( $entity->getType() == Item::ENTITY_TYPE ) {
-			$store->newSiteLinkCache()->saveLinksOfItem( $entity );
-		}
+	/**
+	 * @see Store::newSiteLinkCache
+	 *
+	 * @since 0.1
+	 *
+	 * @return SiteLinkCache
+	 */
+	public function newSiteLinkCache() {
+		return new SiteLinkTable( 'wbc_items_per_site' );
+	}
+
+	/**
+	 * @see Store::newEntityCache
+	 *
+	 * @since 0.1
+	 *
+	 * @return EntityCache
+	 */
+	public function newEntityCache() {
+		return new EntityCacheTable();
 	}
 
 }
