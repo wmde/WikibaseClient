@@ -53,11 +53,13 @@ class ParserErrorMessageFormatter {
 	 * @return string
 	 */
 	public function format( \Message $message ) {
-		return \Html::rawElement(
+		return '';
+	/*	return \Html::rawElement(
 			'span',
 			array( 'class' => 'error' ),
             $message->inLanguage( $this->language )->text()
 		);
+	*/
 	}
 
 }
