@@ -128,7 +128,7 @@ call_user_func( function() {
 	$wgResourceModules = array_merge( $wgResourceModules, include( "$dir/resources/Resources.php" ) );
 
 	$wgWBClientSettings = array_merge(
-		require( __DIR__ . '/../lib/config/WikibaseLib.default.php' ),
+		require( __DIR__ . '/../WikibaseLib/config/WikibaseLib.default.php' ),
 		require( __DIR__ . '/config/WikibaseClient.default.php' )
 	);
 
