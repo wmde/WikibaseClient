@@ -54,9 +54,8 @@ if ( version_compare( $GLOBALS['wgVersion'], '1.21c', '<' ) ) { // Needs to be 1
 
 define( 'WBC_DIR', __DIR__ );
 
-// Include the WikibaseLib extension if that hasn't been done yet, since it's required for WikibaseClient to work.
-if ( !defined( 'WBL_VERSION' ) ) {
-	include_once( __DIR__ . '/../lib/WikibaseLib.php' );
+if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+	include_once( __DIR__ . '/vendor/autoload.php' );
 }
 
 if ( !defined( 'WBL_VERSION' ) ) {

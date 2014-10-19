@@ -36,6 +36,8 @@
 		"wikibase/data-model-javascript": "~0.3.0",
 		"wikibase/data-model-serialization": "~1.2",
 		"wikibase/internal-serialization": "~1.3",
+		"wikibase/lib": "@dev",
+
 		"wikibase/serialization-javascript": "~1.1.1",
 
 		"diff/diff": "~1.0"
@@ -45,12 +47,12 @@
 			"WikibaseClient.php"
 		],
 		"classmap": [
-			"client/includes/",
-			"client/WikibaseClient.hooks.php",
-			"client/tests/phpunit/MockPageUpdater.php",
-			"client/tests/phpunit/MockClientStore.php",
-			"client/tests/phpunit/includes/scribunto/WikibaseLuaIntegrationTestItemSetUpHelper.php",
-			"client/tests/phpunit/includes/scribunto/Scribunto_LuaWikibaseLibraryTestCase.php"
+			"includes/",
+			"WikibaseClient.hooks.php",
+			"tests/phpunit/MockPageUpdater.php",
+			"tests/phpunit/MockClientStore.php",
+			"tests/phpunit/includes/scribunto/WikibaseLuaIntegrationTestItemSetUpHelper.php",
+			"tests/phpunit/includes/scribunto/Scribunto_LuaWikibaseLibraryTestCase.php"
 		]
 	}
 }
